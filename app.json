@@ -1,0 +1,27 @@
+{
+  "name": "api easy deploy",
+  "description": "Mera API REST para armazenar tokens",
+  "repository": "https://github.com/Lewizh11/api_rest_ads",
+  "logo": "https://avatars.githubusercontent.com/u/62635394?v=4",
+  "keywords": [
+    "node",
+    "typescript",
+    "api",
+    "api rest"
+    "rest"
+  ],
+  "website": "https://github.com/Lewizh11/api_rest_ads",
+  "success_url": "https://t.me/ShuseiKagari",
+  "env": {
+    "PASS": {
+      "description": "Sua senha que será usada para a criação de users",
+      "value": "",
+      "required": true
+    },
+    "DB_STRING": {
+      "description": "Crie uma database e conta do MongoDB Atlas https://www.mongodb.com/ após crie um novo cluster e pegue a URL de conexão",
+      "value": "",
+      "required": true
+    }
+  }
+}
