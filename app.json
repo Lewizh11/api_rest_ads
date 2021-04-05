@@ -7,7 +7,7 @@
     "node",
     "typescript",
     "api",
-    "api rest"
+    "api rest",
     "rest"
   ],
   "website": "https://github.com/Lewizh11/api_rest_ads",
@@ -18,7 +18,7 @@
       "value": "",
       "required": true
     },
-    "DB_STRING": {
+    "MONGO_DB": {
       "description": "Crie uma database e conta do MongoDB Atlas https://www.mongodb.com/ após crie um novo cluster e pegue a URL de conexão",
       "value": "",
       "required": true
