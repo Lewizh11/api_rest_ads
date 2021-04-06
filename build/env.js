@@ -8,5 +8,6 @@ var envalid_1 = require("envalid");
 dotenv_1.default.config();
 exports.default = envalid_1.cleanEnv(process.env, {
     MONGO_DB: envalid_1.str(),
-    PASS: envalid_1.str()
+    PASS: envalid_1.str(),
+    PORT: envalid_1.num()
 });
