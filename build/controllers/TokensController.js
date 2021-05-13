@@ -54,11 +54,10 @@ var TokensController = /** @class */ (function () {
                                 token = getAllTokens_1[_i];
                                 currentTokens.push(token.token);
                             }
-                            res.status(200)
-                                .json({ tokens: currentTokens, total: currentTokens.length });
+                            return [2 /*return*/, res.status(200)
+                                    .json({ tokens: currentTokens, total: currentTokens.length })];
                         }
-                        else
-                            res.status(400).json({ error: "Nenhum token registrado" });
+                        res.status(400).json({ error: "Nenhum token registrado" });
                         return [2 /*return*/];
                 }
             });
@@ -71,6 +70,8 @@ var TokensController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         token = req.body.token;
+                        if (!token)
+                            return [2 /*return*/, res.status(400).json({ error: "Você deve informar o TOKEN!" })];
                         return [4 /*yield*/, database_1.tokens.exists({ token: token })];
                     case 1:
                         getToken = _a.sent();
@@ -78,12 +79,10 @@ var TokensController = /** @class */ (function () {
                         return [4 /*yield*/, database_1.tokens.create({ token: token })];
                     case 2:
                         _a.sent();
-                        res.status(201).json({ info: "Token adicionado" });
-                        return [3 /*break*/, 4];
+                        return [2 /*return*/, res.status(201).json({ info: "Token adicionado" })];
                     case 3:
                         res.status(404).json({ error: "Token já adicionando no banco" });
-                        _a.label = 4;
-                    case 4: return [2 /*return*/];
+                        return [2 /*return*/];
                 }
             });
         });
@@ -95,17 +94,17 @@ var TokensController = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         token = req.body.token;
+                        if (!token)
+                            return [2 /*return*/, res.status(400).json({ info: "Você deve informar o TOKEN!" })];
                         getToken = database_1.tokens.exists({ token: token });
                         if (!getToken) return [3 /*break*/, 2];
                         return [4 /*yield*/, database_1.tokens.findOneAndDelete({ token: token })];
                     case 1:
                         _a.sent();
-                        res.status(200).json({ info: "Token deletado" });
-                        return [3 /*break*/, 3];
+                        return [2 /*return*/, res.status(200).json({ info: "Token deletado" })];
                     case 2:
                         res.status(404).json({ error: "Token não existe no banco de dados" });
-                        _a.label = 3;
-                    case 3: return [2 /*return*/];
+                        return [2 /*return*/];
                 }
             });
         });

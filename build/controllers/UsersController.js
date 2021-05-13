@@ -53,11 +53,9 @@ var UsersController = /** @class */ (function () {
                 switch (_c.label) {
                     case 0:
                         _a = req.body, auth = _a.auth, password = _a.password, username = _a.username;
-                        if (!(auth === env_1.default.PASS)) return [3 /*break*/, 5];
-                        if (!password || !username) {
-                            res.status(400).json({ error: "Campo de email ou senha não foi preenchido" });
-                            return [2 /*return*/];
-                        }
+                        if (!(auth === env_1.default.PASS)) return [3 /*break*/, 4];
+                        if (!password || !username)
+                            return [2 /*return*/, res.status(400).json({ error: "Campo de email ou senha não foi preenchido" })];
                         salt = bcrypt_1.default.genSaltSync(5);
                         passHash = bcrypt_1.default.hashSync(password, salt);
                         _c.label = 1;
@@ -66,17 +64,13 @@ var UsersController = /** @class */ (function () {
                         return [4 /*yield*/, database_1.users.create({ username: username, password: passHash })];
                     case 2:
                         _c.sent();
-                        res.status(201).json({ info: "Usuário criado com sucesso" });
-                        return [3 /*break*/, 4];
+                        return [2 /*return*/, res.status(201).json({ info: "Usuário criado com sucesso" })];
                     case 3:
                         _b = _c.sent();
-                        res.status(500).json({ error: "Ocorreu um erro ao criar o usuário" });
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
-                    case 5:
+                        return [2 /*return*/, res.status(500).json({ error: "Ocorreu um erro ao criar o usuário" })];
+                    case 4:
                         res.status(401).json({ error: "Você não tem autorização!" });
-                        _c.label = 6;
-                    case 6: return [2 /*return*/];
+                        return [2 /*return*/];
                 }
             });
         });
@@ -88,10 +82,8 @@ var UsersController = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         _a = req.body, password = _a.password, username = _a.username;
-                        if (!password || !username) {
-                            res.status(400).json({ error: "Campo de usuário ou senha não foi preenchido" });
-                            return [2 /*return*/];
-                        }
+                        if (!password || !username)
+                            return [2 /*return*/, res.status(400).json({ error: "Campo de usuário ou senha não foi preenchido" })];
                         return [4 /*yield*/, database_1.users.findOne({ username: username })];
                     case 1:
                         getUser = _b.sent();
@@ -99,16 +91,11 @@ var UsersController = /** @class */ (function () {
                             correct = bcrypt_1.default.compareSync(password, getUser.password);
                             if (correct) {
                                 token = jsonwebtoken_1.default.sign({ username: username }, env_1.default.PASS);
-                                res.status(200).json({ token: "Bearer " + token });
-                                return [2 /*return*/];
+                                return [2 /*return*/, res.status(200).json({ token: "Bearer " + token })];
                             }
-                            res.status(401).json({ error: "Senha inválida" });
-                            return [2 /*return*/];
+                            return [2 /*return*/, res.status(401).json({ error: "Senha inválida" })];
                         }
-                        else {
-                            res.status(400).json({ error: "Usuário não registrado" });
-                            return [2 /*return*/];
-                        }
+                        res.status(400).json({ error: "Usuário não registrado" });
                         return [2 /*return*/];
                 }
             });
@@ -121,23 +108,18 @@ var UsersController = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         _a = req.body, auth = _a.auth, username = _a.username;
-                        if (!(auth === env_1.default.PASS)) return [3 /*break*/, 5];
+                        if (!auth || !username)
+                            return [2 /*return*/, res.status(400).json({ error: "Campo de auth ou username não foi preenchido" })];
+                        if (!(auth === env_1.default.PASS)) return [3 /*break*/, 4];
                         return [4 /*yield*/, database_1.users.exists({ username: username })];
                     case 1:
                         if (!_b.sent()) return [3 /*break*/, 3];
                         return [4 /*yield*/, database_1.users.findOneAndDelete({ username: username })];
                     case 2:
                         _b.sent();
-                        res.status(200).json({ info: "Usuário deletado" });
-                        return [2 /*return*/];
-                    case 3:
-                        res.status(404).json({ error: "Usuário não existe" });
-                        _b.label = 4;
-                    case 4: return [3 /*break*/, 6];
-                    case 5:
-                        res.status(401).json({ error: "Você não tem autorização!" });
-                        return [2 /*return*/];
-                    case 6: return [2 /*return*/];
+                        return [2 /*return*/, res.status(200).json({ info: "Usuário deletado" })];
+                    case 3: return [2 /*return*/, res.status(404).json({ error: "Usuário não existe" })];
+                    case 4: return [2 /*return*/, res.status(401).json({ error: "Você não tem autorização!" })];
                 }
             });
         });

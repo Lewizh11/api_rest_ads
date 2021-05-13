@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "engines": {
-    "node": "15.x"
+    "node": "16.x"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
