@@ -26,6 +26,7 @@
   },
   "scripts": {
     "dev": "npm ts-node-dev src/",
-    "start": "node build/"
+    "start": "node build/",
+    "build": "npx tsc"
   }
 }
